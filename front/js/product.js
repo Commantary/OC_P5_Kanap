@@ -1,4 +1,12 @@
-function getProduct(id) {
+/**
+ * The getProduct function retrieves a product from the server.
+ *
+ *
+ * @docauthor Tommy MOREAU
+ */
+function getProduct() {
+   // Get the product id from the url
+   let id = new URL(window.location.href).searchParams.get('id');
    let xhr = new XMLHttpRequest();
 
    xhr.open('GET', 'http://localhost:3000/api/products/' + id);
@@ -67,7 +75,38 @@ function getProduct(id) {
    xhr.send();
 }
 
-// Get the product id from the url
-let id = new URL(window.location.href).searchParams.get('id');
+/**
+ * The addToCart function adds a product to the cart.
+ *
+ *
+ * @docauthor Trelent
+ */
+function addToCart() {
+   // Get the product id from the url
+   let id = new URL(window.location.href).searchParams.get('id');
 
-getProduct(id);
+   // Stock in the localStorage the id, color and quantity of product
+   let color = document.getElementById('colors').value;
+   let quantity = document.getElementById('quantity').value;
+
+   // Check if the form is valid
+   if (quantity === '0' || color === '') {
+      alert("Veuillez remplir tous les champs");
+      return;
+   }
+
+   // Get the cart from the localStorage
+   let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+
+   // Add the product to the cart
+   cart[cart.length] = {
+      id: id,
+      color: color,
+      quantity: quantity
+   };
+
+   // Save the cart in the localStorage
+   localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+getProduct();

@@ -1,3 +1,10 @@
+/**
+ * The getProducts function makes a request to the server to get all the products.
+ * It then creates an "a" element for each product and appends it to the #items div.
+ *
+ *
+ * @docauthor Tommy MOREAU
+ */
 function getProducts() {
    // Make a request to the server to get all the products
    let xhr = new XMLHttpRequest();
