@@ -1,3 +1,5 @@
+import {default as routes} from "./routes.js";
+
 /**
  * The getProduct function retrieves a product from the server.
  *
@@ -7,14 +9,12 @@
 function getProduct() {
    // Get the product id from the url
    let id = new URL(window.location.href).searchParams.get('id');
-   let xhr = new XMLHttpRequest();
 
-   xhr.open('GET', 'http://localhost:3000/api/products/' + id);
-
-   xhr.onload = function () {
-      if (xhr.status === 200) {
+   fetch(routes.getProduct(id))
+      .then(response => response.json())
+      .then(data => {
          // Request succeeded. Parse the response.
-         let product = JSON.parse(xhr.responseText);
+         let product = data;
 
          // Change the title of the page with the product name
          document.title = product.name;
@@ -64,15 +64,10 @@ function getProduct() {
             // Append the optionElement to the colorsElement
             colorsElement.appendChild(optionElement);
          }
-      }
-   }
-
-   // If the request failed, do something with the response
-   xhr.onerror = function () {
-      console.log(this.statusText);
-   }
-
-   xhr.send();
+      })
+      .catch(error => {
+         console.log(error);
+      });
 }
 
 /**
@@ -98,15 +93,30 @@ function addToCart() {
    // Get the cart from the localStorage
    let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
 
-   // Add the product to the cart
-   cart[cart.length] = {
-      id: id,
-      color: color,
-      quantity: quantity
-   };
+   // Check if the product is already in the cart with the same color & id
+   let productAlreadyInCart = cart.find(product => product.id === id && product.color === color);
+
+   // If the product is already in the cart, increment the quantity
+   if (productAlreadyInCart) {
+      productAlreadyInCart.quantity += parseFloat(quantity);
+   } else { // If the product is not in the cart, add it
+      cart.push({
+         id: id,
+         color: color,
+         quantity: parseFloat(quantity)
+      });
+   }
 
    // Save the cart in the localStorage
    localStorage.setItem('cart', JSON.stringify(cart));
+
+   alert("Le produit a bien été ajouté au panier");
 }
 
 getProduct();
+
+document.addEventListener('click', function (event) {
+   if (event.target.id === 'addToCart') {
+      addToCart();
+   }
+});

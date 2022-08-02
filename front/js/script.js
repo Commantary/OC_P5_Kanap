@@ -1,3 +1,5 @@
+import {default as routes} from "./routes.js";
+
 /**
  * The getProducts function makes a request to the server to get all the products.
  * It then creates an "a" element for each product and appends it to the #items div.
@@ -5,18 +7,12 @@
  *
  * @docauthor Tommy MOREAU
  */
-function getProducts() {
-   // Make a request to the server to get all the products
-   let xhr = new XMLHttpRequest();
-
-   // Set the request method to GET
-   xhr.open('GET', 'http://localhost:3000/api/products');
-
-   // When the request is completed, do something with the response
-   xhr.onload = function () {
-      if (xhr.status === 200) {
-         // Request succeeded. Parse the response.
-         let products = JSON.parse(xhr.responseText);
+function getAllProducts() {
+   fetch(routes.products)
+      .then(response => response.json())
+      .then(data => {
+         // Request succeeded. Use the response
+         let products = data;
          let productsContainer = document.getElementById('items');
 
          // Loop through the products and create a new a for each one
@@ -34,20 +30,8 @@ function getProducts() {
 
             productsContainer.appendChild(productElement);
          }
-      } else {
-         // Request failed
-         console.log('Request failed');
-      }
-   }
-
-   // If the request failed, do something with the response
-   xhr.onerror = function () {
-      console.log(this.statusText);
-   }
-
-   // Set the request header to application/json
-   xhr.send();
+      }).catch(err => console.log(err)); // If the request failed, do something with the response
 }
 
 // Call the getProducts function when page first load
-getProducts();
+getAllProducts();
