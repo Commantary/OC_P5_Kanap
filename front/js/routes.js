@@ -1,10 +1,19 @@
-// Stock all routes for API
-let routes = {
-   products: 'http://localhost:3000/api/products/',
+/**
+ * @description stock the hostname of the server
+ * @type {string}
+ */
+const host = 'http://localhost:3000';
+
+/**
+ * @description All the routes of the application
+ * @type {{getProduct: (function(id)), products: string, order: string}}
+ */
+const routes = {
+   products: `${host}/api/products/`,
    getProduct: function (id) {
       return this.products + id;
    },
-   order: 'http://localhost:3000/api/products/order/',
+   order: `${host}/api/products/order/`,
 };
 
 // Export the routes

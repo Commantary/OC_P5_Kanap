@@ -1,8 +1,7 @@
 import {default as routes} from "./routes.js";
 
 /**
- * The getProduct function retrieves a product from the server.
- *
+ * Retrieves a product from the server.
  *
  * @docauthor Tommy MOREAU
  */
@@ -71,8 +70,7 @@ function getProduct() {
 }
 
 /**
- * The addToCart function adds a product to the cart.
- *
+ * Add the product to the cart.
  *
  * @docauthor Trelent
  */

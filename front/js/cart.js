@@ -3,11 +3,9 @@ import {default as routes} from "./routes.js";
 /**
  * The deleteProduct function removes a product from the cart.
  *
- *
  * @param id Identify the product to be deleted
  * @param color Check if the color of product is the same
  * @param quantity Check if the quantity of product is the same
- *
  *
  * @docauthor Tommy MOREAU
  */
@@ -32,11 +30,9 @@ function deleteProduct(id, color, quantity) {
  * The updateProduct function update the product quantity and the
  * total price/quantity of the card in the page.
  *
- *
  * @param id Identify the product to be updated
  * @param color Check if the color of product is the same
  * @param quantity the new quantity of the product
- *
  *
  * @docauthor Tommy MOREAU
  */
@@ -83,9 +79,7 @@ function updateProduct(id, color, quantity) {
 /**
  * The addCartDOM function adds a product to the cart.
  *
- *
  * @param product Get the product's information
- *
  *
  * @docauthor Tommy MOREAU
  */
@@ -126,7 +120,6 @@ function addCartDOM(product) {
 
 /**
  * The requestProductsCart function is used to request the products from the localStorage and add them to the cart.
- *
  *
  * @docauthor Tommy MOREAU
  */
@@ -187,12 +180,21 @@ document.addEventListener('click', function (event) {
          return;
       }
 
-      let formValidity = true;
+      // Stock all errors
+      const errorsArr = [
+         "Veuillez entrer une ville valide", // City
+         "Veuillez entrer un prénom valide", // First name
+         "Veuillez entrer un nom valide", // Last name
+         "Veuillez entrer une adresse valide", // Address
+         "Veuillez entrer un email valide" // Email
+      ];
 
       // Check all input with regex to check if they are valid
       let regexOnlyLetters = /^[A-zÀ-ÿ\s]*$/i;
       let regexAddress = /^[A-Za-z0-9À-ÿ'\.\-\s\,]*$/i;
-      let regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i;
+      let regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i
+
+      let formValidity = true;
 
       for (let input of document.getElementsByClassName('cart__order__form')[0].elements) {
          switch (input.name) {
@@ -203,7 +205,17 @@ document.addEventListener('click', function (event) {
                if (regexOnlyLetters.test(input.value) && input.value.length > 1) {
                   document.getElementById(input.name + "ErrorMsg").innerHTML = "";
                } else {
-                  document.getElementById(input.name + "ErrorMsg").innerHTML = "Veuillez entrer un nom valide";
+                  switch (input.name) {
+                     case 'city':
+                        document.getElementById(input.name + "ErrorMsg").innerHTML = errorsArr[0];
+                        break;
+                     case 'firstName':
+                        document.getElementById(input.name + "ErrorMsg").innerHTML = errorsArr[1];
+                        break;
+                     case 'lastName':
+                        document.getElementById(input.name + "ErrorMsg").innerHTML = errorsArr[2];
+                        break;
+                  }
                   formValidity = false;
                }
                break;
@@ -211,7 +223,7 @@ document.addEventListener('click', function (event) {
                if (regexAddress.test(input.value) && input.value.length > 5) {
                   document.getElementById(input.name + "ErrorMsg").innerHTML = "";
                } else {
-                  document.getElementById(input.name + "ErrorMsg").innerHTML = "Veuillez entrer une adresse valide";
+                  document.getElementById(input.name + "ErrorMsg").innerHTML = errorsArr[3];
                   formValidity = false;
                }
                break;
@@ -219,7 +231,7 @@ document.addEventListener('click', function (event) {
                if (regexEmail.test(input.value) && input.value.length > 5) {
                   document.getElementById(input.name + "ErrorMsg").innerHTML = "";
                } else {
-                  document.getElementById(input.name + "ErrorMsg").innerHTML = "Veuillez entrer un email valide";
+                  document.getElementById(input.name + "ErrorMsg").innerHTML = errorsArr[4];
                   formValidity = false;
                }
                break;

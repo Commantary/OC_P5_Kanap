@@ -1,9 +1,8 @@
 import {default as routes} from "./routes.js";
 
 /**
- * The getProducts function makes a request to the server to get all the products.
+ * Make a request to the server to get all the products.
  * It then creates an "a" element for each product and appends it to the #items div.
- *
  *
  * @docauthor Tommy MOREAU
  */
