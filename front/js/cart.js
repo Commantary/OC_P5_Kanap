@@ -267,8 +267,6 @@ document.addEventListener('click', function (event) {
             localStorage.removeItem('cart');
 
             window.location = "../html/confirmation.html?id=" + order.orderId;
-
-
          })
          .catch(error => console.log(error));
    }

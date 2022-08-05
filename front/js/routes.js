@@ -9,10 +9,10 @@ const host = 'http://localhost:3000';
  * @type {{getProduct: (function(id)), products: string, order: string}}
  */
 const routes = {
-   products: `${host}/api/products/`,
    getProduct: function (id) {
       return this.products + id;
    },
+   products: `${host}/api/products/`,
    order: `${host}/api/products/order/`,
 };
 
