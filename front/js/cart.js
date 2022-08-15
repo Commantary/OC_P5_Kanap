@@ -89,7 +89,7 @@ function addCartDOM(product) {
    // Create a new article element in the cart
    let productElement = document.createElement('article');
 
-   // Add all the product's informations in the article
+   // Add all the product's information in the article
    productElement.innerHTML = `
           <article class="cart__item" data-id="${product._id}" data-color="${product.color}">
             <div class="cart__item__img">

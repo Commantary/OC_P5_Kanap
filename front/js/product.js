@@ -25,7 +25,7 @@ function getProduct() {
          // Set the src attribute to the imageUrl
          imgElement.src = product.imageUrl;
          // Set the alt attribute to the name
-         imgElement.alt = "Photographie d'un canapé";
+         imgElement.alt = product.altTxt;
 
          // Append the imgElement to the itemImgContainer
          itemImgContainer[0].appendChild(imgElement);
